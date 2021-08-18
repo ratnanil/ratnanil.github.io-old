@@ -2040,6 +2040,34 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="site_libs/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
+  <script>
+     document.addEventListener("DOMContentLoaded", function () {
+       if (!/posts/.test(location.pathname)) {
+         return;
+       }
+
+       var script = document.createElement("script");
+       script.src = "https://utteranc.es/client.js";
+       script.setAttribute("repo", "ratnanil/ratnanil.github.io");
+       script.setAttribute("issue-term", "title");
+       script.setAttribute("crossorigin", "anonymous");
+       script.setAttribute("label", "utterances");
+       script.setAttribute("theme", "github-light");
+
+       /* wait for article to load, append script to article element */
+       var observer = new MutationObserver(function (mutations, observer) {
+         var article = document.querySelector("d-article");
+         if (article) {
+           observer.disconnect();
+           /* HACK: article scroll */
+           article.setAttribute("style", "overflow-y: hidden");
+           article.appendChild(script);
+         }
+       });
+
+       observer.observe(document.body, { childList: true });
+     });
+   </script>
   <!--/radix_placeholder_site_in_header-->
 
 
@@ -2086,8 +2114,8 @@ h1{
   display: none
 }
 </style>
-<p>I understand things better once I try to explain it. This is one of my motivations to start blogging, to understand more on the topics I’m interested in.</p>
-<p>Also, it helps me complete the thought process of many half baked ideas. Last but not least, I want to join the vibrant community of <code>R</code> users, open source enthusiasts, spatial people, python lovers, linux advocates and data scientists.</p>
+<p>I understand something better once I try to explain it. This is one of my motivations to start blogging: to understand more on the topics I’m interested in.</p>
+<p>Also, publishing something helps me complete the thought process of half baked ideas. And last but not least, I want to join the vibrant community of <code>R</code> users, open source enthusiasts, spatial people, python lovers, linux advocates and data scientists.</p>
 <div style="text-align: center">
 <p><img src = "12532091.jpeg" style = "max-width: 200px;   border-radius: 50%;"></p>
 </div>

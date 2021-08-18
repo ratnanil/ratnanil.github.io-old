@@ -5,27 +5,27 @@
       "title": "What about?",
       "author": [],
       "contents": "\n\nOf shoes — and ships — and sealing-wax — Of cabbages — and kings — And why the sea is boiling hot — And whether pigs have wings.’\n\nFrom The Walrus and the Carpenter by Lewis Carroll\n\n\n\n\n",
-      "last_modified": "2021-08-18T22:47:19+02:00"
+      "last_modified": "2021-08-18T23:01:13+02:00"
     },
     {
       "path": "index.html",
       "title": "My Blog",
       "author": [],
-      "contents": "\n\nh1{\n  display: none\n}\nI understand things better once I try to explain it. This is one of my motivations to start blogging, to understand more on the topics I’m interested in.\nAlso, it helps me complete the thought process of many half baked ideas. Last but not least, I want to join the vibrant community of R users, open source enthusiasts, spatial people, python lovers, linux advocates and data scientists.\n\n\n\nMy Name is Nils Ratnaweera and I’m a Research Fellow at the Zurich University of Applied Sciences. I’m an environmental engineer who love his job of working with environmental spatial data using mainly open source tools such as R, python, gdal, SQL.\n\n\n\n\n",
-      "last_modified": "2021-08-18T22:47:20+02:00"
+      "contents": "\n\nh1{\n  display: none\n}\nI understand something better once I try to explain it. This is one of my motivations to start blogging: to understand more on the topics I’m interested in.\nAlso, publishing something helps me complete the thought process of half baked ideas. And last but not least, I want to join the vibrant community of R users, open source enthusiasts, spatial people, python lovers, linux advocates and data scientists.\n\n\n\nMy Name is Nils Ratnaweera and I’m a Research Fellow at the Zurich University of Applied Sciences. I’m an environmental engineer who love his job of working with environmental spatial data using mainly open source tools such as R, python, gdal, SQL.\n\n\n\n\n",
+      "last_modified": "2021-08-18T23:01:13+02:00"
     },
     {
       "path": "posts.html",
       "title": "curiouser and curiouser!",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-08-18T22:47:21+02:00"
+      "last_modified": "2021-08-18T23:01:13+02:00"
     },
     {
       "path": "Readme.html",
       "author": [],
       "contents": "\nMy very first and only blog, currently hostet on nils.ratnaweera.net\nTodo:\nspin_child\npython toolbox documentation (see repo and SO answer)\nhometrails\nchange default theme\n",
-      "last_modified": "2021-08-18T22:47:21+02:00"
+      "last_modified": "2021-08-18T23:01:13+02:00"
     }
   ],
   "collections": ["posts/posts.json"]
