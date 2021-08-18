@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+  <channel>
+    <title>To talk of many things</title>
+    <link>https://nils.ratnaweera.net</link>
+    <atom:link href="https://nils.ratnaweera.net/posts.xml" rel="self" type="application/rss+xml"/>
+    <description>If you can't explain it, you don't understand it well enough.
+</description>
+    <generator>Distill</generator>
+    <lastBuildDate>Thu, 13 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Minimalistic topography</title>
+      <dc:creator>Nils Ratnaweera</dc:creator>
+      <link>https://nils.ratnaweera.net/posts/2021-08-13-minimalistic-topography</link>
+      <description>A beautiful way to visualize topography, inspired by Carla Martínez Sastre</description>
+      <category>R</category>
+      <category>geodata</category>
+      <guid>https://nils.ratnaweera.net/posts/2021-08-13-minimalistic-topography</guid>
+      <pubDate>Thu, 13 Aug 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://nils.ratnaweera.net/posts/2021-08-13-minimalistic-topography/minimalistic_topography.png" medium="image" type="image/png" width="3543" height="2787"/>
+    </item>
+  </channel>
+</rss>

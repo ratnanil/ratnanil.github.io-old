@@ -117,7 +117,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["data_gitlfs/DHM25/DHM200_polyface.dxf","data_gitlfs/DHM25/DHM200.asc","data_gitlfs/DHM25/DHM200.xyz","data_gitlfs/DHM25/license.txt","data_gitlfs/DHM25/Metadata_gm03.xml","data_gitlfs/DHM25/Metadata_PDF.pdf","data_gitlfs/DHM25/Metadata_xml_iso19139.xml","data_gitlfs/swissboundaries/swissBOUNDARIES3D_1_3_TLM_LANDESGEBIET.cpg","data_gitlfs/swissboundaries/swissBOUNDARIES3D_1_3_TLM_LANDESGEBIET.dbf","data_gitlfs/swissboundaries/swissBOUNDARIES3D_1_3_TLM_LANDESGEBIET.prj","data_gitlfs/swissboundaries/swissBOUNDARIES3D_1_3_TLM_LANDESGEBIET.shp","data_gitlfs/swissboundaries/swissBOUNDARIES3D_1_3_TLM_LANDESGEBIET.shx","minimalistic_topography.png","minimalistic-topography_files/anchor-4.2.2/anchor.min.js","minimalistic-topography_files/bowser-1.9.3/bowser.min.js","minimalistic-topography_files/distill-2.2.21/template.v2.js","minimalistic-topography_files/figure-html5/unnamed-chunk-1-1.png","minimalistic-topography_files/figure-html5/unnamed-chunk-2-1.png","minimalistic-topography_files/figure-html5/unnamed-chunk-3-1.png","minimalistic-topography_files/figure-html5/unnamed-chunk-4-1.png","minimalistic-topography_files/figure-html5/unnamed-chunk-5-1.png","minimalistic-topography_files/header-attrs-2.10/header-attrs.js","minimalistic-topography_files/jquery-1.11.3/jquery.min.js","minimalistic-topography_files/popper-2.6.0/popper.min.js","minimalistic-topography_files/tippy-6.2.7/tippy-bundle.umd.min.js","minimalistic-topography_files/tippy-6.2.7/tippy-light-border.css","minimalistic-topography_files/tippy-6.2.7/tippy.css","minimalistic-topography_files/tippy-6.2.7/tippy.umd.min.js","minimalistic-topography_files/webcomponents-2.0.0/webcomponents.js","tweet.png"]}
+  {"type":"character","attributes":{},"value":["data-git-lfs/DHM25/DHM200_polyface.dxf","data-git-lfs/DHM25/DHM200.asc","data-git-lfs/DHM25/DHM200.xyz","data-git-lfs/DHM25/license.txt","data-git-lfs/DHM25/Metadata_gm03.xml","data-git-lfs/DHM25/Metadata_PDF.pdf","data-git-lfs/DHM25/Metadata_xml_iso19139.xml","data-git-lfs/swissboundaries/swissBOUNDARIES3D_1_3_TLM_LANDESGEBIET.cpg","data-git-lfs/swissboundaries/swissBOUNDARIES3D_1_3_TLM_LANDESGEBIET.dbf","data-git-lfs/swissboundaries/swissBOUNDARIES3D_1_3_TLM_LANDESGEBIET.prj","data-git-lfs/swissboundaries/swissBOUNDARIES3D_1_3_TLM_LANDESGEBIET.shp","data-git-lfs/swissboundaries/swissBOUNDARIES3D_1_3_TLM_LANDESGEBIET.shx","minimalistic_topography.png","minimalistic-topography_files/anchor-4.2.2/anchor.min.js","minimalistic-topography_files/bowser-1.9.3/bowser.min.js","minimalistic-topography_files/distill-2.2.21/template.v2.js","minimalistic-topography_files/figure-html5/unnamed-chunk-1-1.png","minimalistic-topography_files/figure-html5/unnamed-chunk-2-1.png","minimalistic-topography_files/figure-html5/unnamed-chunk-3-1.png","minimalistic-topography_files/figure-html5/unnamed-chunk-4-1.png","minimalistic-topography_files/figure-html5/unnamed-chunk-5-1.png","minimalistic-topography_files/header-attrs-2.10/header-attrs.js","minimalistic-topography_files/jquery-1.11.3/jquery.min.js","minimalistic-topography_files/popper-2.6.0/popper.min.js","minimalistic-topography_files/tippy-6.2.7/tippy-bundle.umd.min.js","minimalistic-topography_files/tippy-6.2.7/tippy-light-border.css","minimalistic-topography_files/tippy-6.2.7/tippy.css","minimalistic-topography_files/tippy-6.2.7/tippy.umd.min.js","minimalistic-topography_files/webcomponents-2.0.0/webcomponents.js","tweet.png"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1485,11 +1485,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 <div class="d-article">
 <p>“<em>So beautiful that it hurts</em>”<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Bauhasaurus wrote <a href="https://twitter.com/alejandrocsome/status/1403754901541470219?s=20">in his tweet</a>, posting an image by <a href="https://www.instagram.com/funkiecharlie/">Carla Martínez Sastre</a>. The artist had used a beautiful, clever and minimalistic way to visualize the topography of South America.</p>
-<div class="layout-chunk" data-layout="l-body">
-<p><img src="tweet.png" width="313" /></p>
-</div>
+<p style="text-align: center">
+<a href="https://twitter.com/alejandrocsome/status/1403754901541470219?s=20"> <img src="tweet.png" style="max-width: 100%; width: 400px; text-align: center" width="313"> </a>
+</p>
 <p>The way I understand it, Carla drew “horizontal” (latitudanal) elevation profiles at equal intervals over the continent and filled these elevation profiles to visualize not only the continent’s topography, but also implicitly showing it’s borders.</p>
-<p>Like Bauhasaurus, I found this a very nice approach and tried recreating this idea with R for my home country, Switzerland. Check below to see the source code.</p>
+<p>I found this a very nice approach and tried recreating this idea with R for my home country, Switzerland. I’m quite happy with the result, however there is still a lot of room for improvement. I’ve packed the approach into generic functions, see below for the complete source code. Check below to see the source code.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="minimalistic_topography.png" width="1772" /></p>
 </div>
@@ -1612,11 +1612,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ragg.r-lib.org'>ragg</a></span><span class='op'>)</span>
 
 
-<span class='va'>dhm</span> <span class='op'>&lt;-</span> <span class='fu'>terra</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/terra/man/rast.html'>rast</a></span><span class='op'>(</span><span class='st'>"data_gitlfs/DHM25/DHM200.asc"</span><span class='op'>)</span>
+<span class='va'>dhm</span> <span class='op'>&lt;-</span> <span class='fu'>terra</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/terra/man/rast.html'>rast</a></span><span class='op'>(</span><span class='st'>"data-git-lfs/DHM25/DHM200.asc"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/pkg/terra/man/crs.html'>crs</a></span><span class='op'>(</span><span class='va'>dhm</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>"epsg:21781"</span>
 
 
-<span class='va'>switzerland_21781</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_read.html'>read_sf</a></span><span class='op'>(</span><span class='st'>"data_gitlfs/swissboundaries/swissBOUNDARIES3D_1_3_TLM_LANDESGEBIET.shp"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='va'>switzerland_21781</span> <span class='op'>&lt;-</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_read.html'>read_sf</a></span><span class='op'>(</span><span class='st'>"data-git-lfs/swissboundaries/swissBOUNDARIES3D_1_3_TLM_LANDESGEBIET.shp"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://r-spatial.github.io/sf/reference/geos_combine.html'>st_union</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_transform.html'>st_transform</a></span><span class='op'>(</span><span class='fl'>21781</span><span class='op'>)</span> 
 
@@ -1662,7 +1662,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span class='va'>myplot</span>
 </code></pre>
 </div>
-<img src="minimalistic-topography_files/figure-html5/unnamed-chunk-5-1.png" width="624" />
+<img src="minimalistic-topography_files/figure-html5/unnamed-chunk-4-1.png" width="624" />
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></span><span class='op'>(</span><span class='st'>"minimalistic_topography.png"</span>, <span class='va'>myplot</span>,dpi <span class='op'>=</span> <span class='fl'>600</span>, device <span class='op'>=</span> <span class='va'>agg_png</span>, width <span class='op'>=</span> <span class='fl'>15</span>, units <span class='op'>=</span> <span class='st'>"cm"</span><span class='op'>)</span>
 </code></pre>

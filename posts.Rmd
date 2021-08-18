@@ -1,4 +1,5 @@
 ---
-title: "Posts"
+title: "curiouser and curiouser!"
+site: distill::distill_website
 listing: posts
 ---

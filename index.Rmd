@@ -1,5 +1,5 @@
 ---
-title: "Welcome!"
+title: "My Blog"
 site: distill::distill_website
 ---
 
@@ -9,11 +9,22 @@ h1{
 }
 </style>
 
->  The time has come,' the Walrus said,
->  To talk of many things
 
-From *The Walrus and the Carpenter* by Lewis Carroll 
+I understand things better once I try to explain it. This is one of my motivations to start blogging, to understand more on the topics I'm interested in. 
+
+Also, it helps me complete the thought process of many half baked ideas. Last but not least, I want to join the vibrant community of `R` users, open source enthusiasts, spatial people, python lovers, linux advocates and data scientists.
 
 
-![](Briny_Beach.jpg)
+<div style = "text-align: center">
+<img src = "12532091.jpeg" style = "max-width: 200px;   border-radius: 50%;">
+</div>
+
+My Name is Nils Ratnaweera and I'm a Research Fellow at the Zurich University of Applied Sciences. I'm an environmental engineer who love his job of working with environmental spatial data using mainly open source tools such as `R`, `python`, `gdal`, `SQL`.
+
+
+
+
+
+
+<!-- ![](Briny_Beach.jpg) -->
 
