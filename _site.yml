@@ -2,7 +2,7 @@ name: "Nils' Blog"
 title: "To talk of many things"
 description: |
   If you can't explain it, you don't understand it well enough.
-output_dir: "_site"
+output_dir: "docs"
 source_url: https://github.com/ratnanil/myblog
 base_url: https://nils.ratnaweera.net
 navbar:
