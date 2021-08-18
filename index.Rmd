@@ -1,0 +1,19 @@
+---
+title: "Welcome!"
+site: distill::distill_website
+---
+
+<style>
+h1{
+  display: none
+}
+</style>
+
+>  The time has come,' the Walrus said,
+>  To talk of many things
+
+From *The Walrus and the Carpenter* by Lewis Carroll 
+
+
+![](Briny_Beach.jpg)
+
