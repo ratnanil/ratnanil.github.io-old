@@ -1,0 +1,8 @@
+code:not(.sourceCode){
+  font-size: .85em;
+  padding: .2em;
+}
+
+.sourceCode, code{
+  background: #f7f7f7;
+}
