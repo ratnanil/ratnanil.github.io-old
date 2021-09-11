@@ -1,7 +1,6 @@
 ---
 title: "Minimalistic topography"
 author: "Nils Ratnaweera"
-date: "2020-08-13"
 description: |
   A beautiful way to visualize topography, inspired by Carla Martínez Sastre
 categories: ["R", "geodata"]
