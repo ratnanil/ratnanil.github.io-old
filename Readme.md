@@ -1,4 +1,4 @@
-My very first and only blog, currently hostet on nils.ratnaweera.net
+My very first and only blog, currently hosted on nils.ratnaweera.net
 
 Todo:
 

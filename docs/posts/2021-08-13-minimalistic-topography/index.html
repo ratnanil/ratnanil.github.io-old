@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,13 +77,14 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
 <title>To talk of many things: Minimalistic topography</title>
@@ -93,8 +94,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <link rel="canonical" href="https://nils.ratnaweera.net/posts/2021-08-13-minimalistic-topography/"/>
 
 <!--  https://schema.org/Article -->
-<meta property="article:published" itemprop="datePublished" content="2020-08-13"/>
-<meta property="article:created" itemprop="dateCreated" content="2020-08-13"/>
+<meta property="article:published" itemprop="datePublished" content="2021-09-11"/>
+<meta property="article:created" itemprop="dateCreated" content="2021-09-11"/>
 <meta name="article:author" content="Nils Ratnaweera"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -121,14 +122,14 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
 <meta name="citation_title" content="To talk of many things: Minimalistic topography"/>
 <meta name="citation_fulltext_html_url" content="https://nils.ratnaweera.net/posts/2021-08-13-minimalistic-topography/"/>
-<meta name="citation_online_date" content="2020/08/13"/>
-<meta name="citation_publication_date" content="2020/08/13"/>
+<meta name="citation_online_date" content="2021/09/11"/>
+<meta name="citation_publication_date" content="2021/09/11"/>
 <meta name="citation_author" content="Nils Ratnaweera"/>
 <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","date","description","categories","tags","preview","twitter","output","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["Minimalistic topography"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Nils Ratnaweera"]}]}]},{"type":"character","attributes":{},"value":["2020-08-13"]},{"type":"character","attributes":{},"value":["A beautiful way to visualize topography, inspired by Carla Martínez Sastre"]},{"type":"character","attributes":{},"value":["R","geodata"]},{"type":"character","attributes":{},"value":["R","topography","sf","terra","swisstopo"]},{"type":"character","attributes":{},"value":["minimalistic_topography.png"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["site","author"]}},"value":[{"type":"character","attributes":{},"value":["@NRatnaweera"]},{"type":"character","attributes":{},"value":["@NRatnaweera"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["https://nils.ratnaweera.net/posts/2021-08-13-minimalistic-topography/"]},{"type":"character","attributes":{},"value":["https://nils.ratnaweera.net/posts/2021-08-13-minimalistic-topography/"]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","description","categories","tags","preview","twitter","output","date","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["Minimalistic topography"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Nils Ratnaweera"]}]}]},{"type":"character","attributes":{},"value":["A beautiful way to visualize topography, inspired by Carla Martínez Sastre"]},{"type":"character","attributes":{},"value":["R","geodata"]},{"type":"character","attributes":{},"value":["R","topography","sf","terra","swisstopo"]},{"type":"character","attributes":{},"value":["minimalistic_topography.png"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["site","author"]}},"value":[{"type":"character","attributes":{},"value":["@NRatnaweera"]},{"type":"character","attributes":{},"value":["@NRatnaweera"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["09-11-2021"]},{"type":"character","attributes":{},"value":["https://nils.ratnaweera.net/posts/2021-08-13-minimalistic-topography/"]},{"type":"character","attributes":{},"value":["https://nils.ratnaweera.net/posts/2021-08-13-minimalistic-topography/"]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -2356,7 +2357,7 @@ gtag('config', 'G-V2ZRK780J8');
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Minimalistic topography","description":"A beautiful way to visualize topography, inspired by Carla Martínez Sastre","authors":[{"author":"Nils Ratnaweera","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2020-08-13T00:00:00.000+02:00","citationText":"Ratnaweera, 2020"}
+{"title":"Minimalistic topography","description":"A beautiful way to visualize topography, inspired by Carla Martínez Sastre","authors":[{"author":"Nils Ratnaweera","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-09-11T00:00:00.000+02:00","citationText":"Ratnaweera, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2394,7 +2395,7 @@ gtag('config', 'G-V2ZRK780J8');
   
   Nils Ratnaweera
   
-<br/>2020-08-13
+<br/>09-11-2021
 </div>
 
 <div class="d-article">
@@ -2603,13 +2604,13 @@ gtag('config', 'G-V2ZRK780J8');
 <div class="appendix-bottom">
   <h3 id="citation">Citation</h3>
   <p>For attribution, please cite this work as</p>
-  <pre class="citation-appendix short">Ratnaweera (2020, Aug. 13). To talk of many things: Minimalistic topography. Retrieved from https://nils.ratnaweera.net/posts/2021-08-13-minimalistic-topography/</pre>
+  <pre class="citation-appendix short">Ratnaweera (2021, Sept. 11). To talk of many things: Minimalistic topography. Retrieved from https://nils.ratnaweera.net/posts/2021-08-13-minimalistic-topography/</pre>
   <p>BibTeX citation</p>
-  <pre class="citation-appendix long">@misc{ratnaweera2020minimalistic,
+  <pre class="citation-appendix long">@misc{ratnaweera2021minimalistic,
   author = {Ratnaweera, Nils},
   title = {To talk of many things: Minimalistic topography},
   url = {https://nils.ratnaweera.net/posts/2021-08-13-minimalistic-topography/},
-  year = {2020}
+  year = {2021}
 }</pre>
 </div>
 <!--/radix_placeholder_appendices-->
