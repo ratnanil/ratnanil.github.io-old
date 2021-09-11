@@ -11,9 +11,13 @@ navbar:
       href: index.html
     - text: "Blog"
       href: posts.html
+    - text: "Teaching Materials"
+      href: teaching.html
 output:
   distill::distill_article:
     includes:
       in_header: utterances.html
+    theme: mystyle.css
 collections:
   - posts
+google_analytics: G-V2ZRK780J8
