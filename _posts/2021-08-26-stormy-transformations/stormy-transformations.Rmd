@@ -1,0 +1,144 @@
+---
+title: "Stormy Transformations"
+description: |
+  A short description of the post.
+author:
+  - name: Nils Ratnaweera
+    url: {}
+draft: true
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r, include=FALSE}
+if(interactive()){setwd("_posts/2021-08-26-stormy-transformations/")}
+```
+
+
+
+```{r}
+rgdal::list_coordOps("EPSG:21781", "EPSG:2056")
+```
+
+```{bash, eval = FALSE}
+wget https://cdn.proj.org/ch_swisstopo_CHENyx06a.tif
+sudo mv ch_swisstopo_CHENyx06a.tif /usr/share/proj/
+```
+
+
+```{r}
+library(sf)
+library(dplyr)
+library(ggplot2)
+library(tidyr`)
+
+landesgebiet <- read_sf("data-git-lfs/swissboundaries/swissBOUNDARIES3D_1_3_TLM_LANDESGEBIET.shp")
+
+make_grid <- function(cellsize, land){
+  gri <- st_make_grid(land, cellsize, what = "centers")
+  
+  warning("Assuming that 'land' is in EPSG 2056!")
+  gri2 <- st_transform(gri, 21781)
+  
+  mat <- cbind(
+    st_coordinates(gri),
+    st_coordinates(gri2)
+  )
+  
+  colnames(mat) <- c("E", "N", "X", "Y")
+  
+  mat %>%
+    tibble::as_tibble() %>%
+    mutate(
+      E_fic = (X+2e6),
+      N_fic = (Y+1e6),
+      E_norm = E - E_fic,
+      N_norm = N - N_fic,
+      dist = (E_norm^2+N_norm^2)^0.5,
+      heading = atan2(N_norm, E_norm)
+    )
+  
+}
+```
+
+
+```{r, layout="l-page"}
+df <- make_grid(5000, landesgebiet)
+
+df <- df %>%
+  mutate(
+    h = heading*180/pi,
+    heading_deg = case_when(
+      h>=0 & h<=90~90-h,
+      h>90~450-h,
+      TRUE~abs(h) + 90
+      )
+  )
+
+
+
+colo <- rainbow(4)
+colo <- c(colo, colo[1])
+
+bb_ch <- landesgebiet %>%
+  st_bbox() %>%
+  st_as_sfc() %>%
+  st_buffer(5000) %>%
+  st_difference(st_union(landesgebiet))
+
+
+p1 <- ggplot(df, aes(E, N, fill = heading_deg, alpha = dist)) +
+  geom_raster() +
+  scale_fill_gradientn(colors = colo)+
+  theme_void() +
+  scale_alpha_continuous(range = c(0.5, 1)) +
+  geom_sf(data = bb_ch, inherit.aes = FALSE, fill = "white", color = "NA") +
+  theme(legend.position = "none")
+
+
+leg <- tibble(x = seq(1, 360, 0.1)) %>%
+  crossing(y = 7:10) %>%
+  ggplot(aes(x, y, color = x)) +
+  geom_point(size = 5) +
+  scale_color_gradientn(colors = colo)+
+  coord_polar() +
+  scale_y_continuous(limits = c(0,11)) +
+  scale_x_continuous(breaks = c(90, 180, 270, 360), labels = c("East", "South", "West", "North")) +
+  theme(panel.background = element_blank(), axis.title = element_blank(), axis.text.y = element_blank(),axis.ticks.y = element_blank(), legend.position = "none", axis.text = element_text(size = 7),plot.margin = margin(10,10,10,10))
+
+leg
+
+library(cowplot)
+ggdraw(p1) +
+  draw_plot(leg, .99, .99, .2, .2, scale = 1, hjust = 1,vjust = 1, halign = 1, valign = 3)
+```
+
+
+```{r, layout="l-page"}
+ggplot(df, aes(E_fic,N_fic, color = dist)) +
+  geom_point(size = 0.1) +
+  geom_spoke(aes(angle = heading, radius = scales::rescale(dist, 5e3, 10e3)), alpha = 0.4) +
+  geom_sf(data = landesgebiet, inherit.aes = FALSE, fill = "NA") +
+  scale_color_gradient(low = "blue", high = "red") +
+  theme_void() +
+  theme(legend.position = "bottom")
+```
+
+
+```{r}
+
+df2 <- make_grid(3000, landesgebiet)
+
+
+ggplot(df2, aes(E_fic,N_fic, color = dist)) +
+  geom_point(size = 0.4) +
+  geom_spoke(aes(angle = heading),arrow=arrow(length = unit(0.2,"cm")), radius = 1) +
+  geom_sf(data = landesgebiet, inherit.aes = FALSE, fill = "NA") +
+  scale_color_gradient(low = "blue", high = "red") +
+  theme_void()+
+  theme(legend.position = "bottom")
+
+```
+
+
