@@ -1,0 +1,263 @@
+---
+title: "Benchmarking binary predicates"
+author: "Nils Ratnaweera"
+description: |
+  Comparing the speeds of different methods to do a "point in polygon operation" with sf.
+categories: ["R", "geodata"]
+tags: ["R", "point-in-polygon", "sf", "swisstopo", "Sri Lanka"]
+preview: preview.jpg
+twitter: 
+  site: "@NRatnaweera"
+  author: "@NRatnaweera"
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+I often come across a situation where I need to subset points based on whether they lie within a polygon or not. There are several methods to solve this problem.^[especially since I mostly don't care what happens to point which lie *exactly* on the polygon edge] In `sf` the functions  `st_within`, `st_contains`, `st_intersects` or `st_covered_by` lead you to similar results.^[`st_within` and `st_contains` will disregard points on a line, `st_intersects` and `st_covered_by` will include them]
+
+With big datasets, some of these functions are unbearably slow. To find out which one is faster in which scenario, I decided to benchmark the four functions.
+
+To make things a bit more interesting, I won't use my usual Swiss data for this test, but data from my second home, Sri Lanka. More specifically: I will use the "Geonames" data (> 50k Points, obtained from [here](https://www.geonames.org/)) and the administrative boundaries of Sri Lanka ("province", obtained from [here](https://data.humdata.org/dataset/sri-lanka-administrative-levels-0-4-boundaries)).
+
+```{r, include = FALSE}
+code_folding <- function(text){paste("show code for:",text)}
+```
+
+
+```{r, code_folding = code_folding("loading libraries")}
+library(dplyr)
+library(purrr)
+library(sf)
+library(readr)
+library(ggplot2)
+```
+
+
+
+```{r, code_folding = code_folding("preparing boundary data")}
+# Downloaded from: https://data.humdata.org/dataset/sri-lanka-administrative-levels-0-4-boundaries
+# Administrative Level 0: country (1 features)
+# Administrative Level 1: province (9 features)
+# Administrative Level 2: district (26 features)
+# Administrative Level 3: divisional secretatiat (333 features)
+# Administrative Level 4: grama niladhari (14'044 features)
+
+tmp <- tempdir()
+
+boundary_dir <- file.path(tmp, "boundary")
+unzip("data-git-lfs/lka_adm_slsd_20200305_shp.zip", exdir = boundary_dir)
+
+sl_boundary_l2 <- read_sf(
+  file.path(boundary_dir, "lka_admbnda_adm2_slsd_20200305.shp")
+  )
+# https://epsg.io/5234
+# https://epsg.io/5235
+```
+
+
+
+
+```{r, code_folding = code_folding("preparing geonames dataset")}
+# geonameid         : integer id of record in geonames database
+# name              : name of geographical point (utf8) varchar(200)
+# asciiname         : name of geographical point in plain ascii characters, varchar(200)
+# alternatenames    : alternatenames, comma separated, ascii names automatically transliterated, convenience attribute from alternatename table, varchar(10000)
+# latitude          : latitude in decimal degrees (wgs84)
+# longitude         : longitude in decimal degrees (wgs84)
+# feature class     : see http://www.geonames.org/export/codes.html, char(1)
+# feature code      : see http://www.geonames.org/export/codes.html, varchar(10)
+# country code      : ISO-3166 2-letter country code, 2 characters
+# cc2               : alternate country codes, comma separated, ISO-3166 2-letter country code, 200 characters
+# admin1 code       : fipscode (subject to change to iso code), see exceptions below, see file admin1Codes.txt for display names of this code; varchar(20)
+# admin2 code       : code for the second administrative division, a county in the US, see file admin2Codes.txt; varchar(80) 
+# admin3 code       : code for third level administrative division, varchar(20)
+# admin4 code       : code for fourth level administrative division, varchar(20)
+# population        : bigint (8 byte int) 
+# elevation         : in meters, integer
+# dem               : digital elevation model, srtm3 or gtopo30, average elevation of 3''x3'' (ca 90mx90m) or 30''x30'' (ca 900mx900m) area in meters, integer. srtm processed by cgiar/ciat.
+# timezone          : the iana timezone id (see file timeZone.txt) varchar(40)
+# modification date : date of last modification in yyyy-MM-dd format
+
+
+colnames <- c("geonameid", "name",  "asciiname",  "alternatenames", "latitude",  "longitude",  "feature_class",  "feature_code", "country_code",  "cc2",  "admin1_code",  "admin2_code",  "admin3_code",  "admin4_code",  "population", "elevation", "dem", "timezone",  "modification_date")
+
+
+geonames_dir <- file.path(tmp, "geonames")
+
+unzip("data-git-lfs/LK.zip", exdir = geonames_dir)
+
+geonames <- read_tsv(file.path(geonames_dir, "LK.txt"),col_names = colnames) %>%
+  st_as_sf(coords = c("longitude", "latitude"), crs = 4326)
+```
+
+
+Once all the data is imported, I can demonstrate visually the task. I want to subset all points within the province of Kandy (where I coincidentally spent 5 superb years of my childhood). Using `st_within()` for this operation, the output looks like this:
+
+<!-- https://www.color-hex.com/color-palette/113143 -->
+```{r, code_folding = code_folding("subsetting and creating a map"), layout = "l-page"}
+
+kandy <- filter(sl_boundary_l2, ADM2_EN == "Kandy")
+filter1 <- geonames[st_within(geonames,kandy,sparse = FALSE)[,1],]
+
+
+p1 <- ggplot(sl_boundary_l2) + 
+  geom_sf(color = "#ffffff", fill = "#ababab") +
+  geom_sf(data = rbind(transmute(geonames, val = "all points"), 
+                       transmute(filter1, 
+                                 val = "points within the\nprovince of Kandy")), 
+          alpha = 0.05, size = 0.05, color = "#8d2663") +
+  geom_sf(data = ~filter(., ADM2_EN == "Kandy"), fill = NA, color = "#000000") +
+  facet_wrap(~val) +
+  coord_sf(xlim = c(78, 83)) + 
+  theme(strip.background = element_blank(),
+        strip.text = element_text(color = "white"),
+        panel.background = element_blank(),
+        plot.background = element_rect(fill = "#2d2d2d"),
+        panel.grid = element_blank(),
+        axis.text = element_blank(),
+        )
+
+p1
+```
+
+Doing the same operation as above with the other function is done as follows. In addition I will check the output number of rows to see if they are similar (they might be slightly off if we have points exactly *on* the polygon boundary) or even identical.
+
+```{r}
+
+filter2 <- geonames[st_contains(kandy,geonames,sparse = FALSE)[1,],]
+filter3 <- geonames[st_intersects(geonames,kandy,sparse = FALSE)[,1],]
+filter4 <- geonames[st_covered_by(geonames,kandy,sparse = FALSE)[,1],]
+
+filter_list <- list(filter1, filter2, filter3, filter4)
+
+
+
+tibble(
+  fun = paste0("st_",c("within","contains","intersects","covered_by")),
+  nrow = sapply(filter_list, nrow),
+  identical = sapply(filter_list, function(x){identical(filter1, x)})
+) %>%
+  knitr::kable()
+
+```
+
+
+To find out which function does the job fastest, I use the package `microbenchmark`. Since it doesn't always take the same amount of time to process the same function, each function is executed multiple times (`times = 50`).
+
+
+```{r, code_folding = code_folding("Benchmarking the functions"), cache = TRUE}
+library(microbenchmark)
+library(ggridges)
+library(forcats)
+
+mbm  <- microbenchmark(
+  intersects = st_intersects(kandy,geonames),
+  within = st_within(geonames,kandy),
+  contains = st_contains(kandy,geonames),
+  covered_by = st_covered_by(geonames,kandy),
+  times = 50
+)
+
+mbm$time <- microbenchmark:::convert_to_unit(mbm$time,"t")
+
+p2 <- mbm %>%
+  mutate(
+    expr = fct_reorder(expr,time,median,.desc = TRUE)
+  ) %>%
+  ggplot(aes(time,expr,fill = ..x..)) +
+  geom_density_ridges_gradient(scale = 2, rel_min_height = 0.01) +
+  scale_fill_viridis_c(option = "C")  +
+  labs(y = "Function",x = paste0("Duration (in ",attr(mbm$time,"unit"),")")) +
+  theme_minimal() +
+  theme(legend.position="none")
+
+p2
+```
+
+This benchmark shows that `st_contains` and `st_intersects` executes faster than `st_covered_by` and `st_within`. The next question is: How do the functions scale and perform under different scenarios? I'll test this by generating additional points to subset, and also by using more provinces than just Kandy. 
+
+```{r, code_folding = code_folding("Benchmarking scalability"), eval = FALSE}
+n_points_vec <- c(100e3,200e3,500e3)
+n_poly_vec <- c(1,9,17,26)
+
+mbm2 <- map_dfr(n_points_vec,function(n_points){
+  
+  points <- st_sample(sl_boundary_l2,n_points,what = "centers")
+
+  mbm_points <- map_dfr(n_poly_vec, function(n_poly){
+    
+    polygons <- sample_n(sl_boundary_l2, n_poly)
+    
+    mbm_poly <- microbenchmark(
+      intersects = st_intersects(polygons,points),
+      within = st_within(points,polygons),
+      contains = st_contains(polygons,points),
+      covered_by = st_covered_by(points,polygons),
+      times = 10
+      )
+    
+    mbm_poly$time <- microbenchmark:::convert_to_unit(mbm_poly$time,"ms")
+    
+    as_tibble(mbm_poly) %>%
+      mutate(n_poly = n_poly)
+  }) %>%
+    mutate(n_points = n_points)
+})
+```
+
+
+```{r, echo = FALSE, eval = FALSE}
+save(mbm2, file = "mbm2.Rda")
+```
+
+```{r, echo=FALSE}
+load("mbm2.Rda")
+```
+
+
+
+```{r, code_folding = code_folding("Visualizing results"), fig.height=7}
+mbm2$time <- microbenchmark:::convert_to_unit(mbm2$time,"t")
+quartiles <- function(x) {
+  # tibble(x = quantile(x, c(.25,.5,.75)), probs = paste0("Q",1:3))
+  
+  quantile(x, c(.25,.5,.75)) %>%
+    setNames(paste0("Q",1:3)) %>%
+    as.list() %>%
+    as_tibble()
+  
+}
+
+mbm2 %>%
+  group_by(expr, n_poly, n_points) %>%
+  summarise(quartiles(time)) %>% 
+  ungroup() %>%
+  # mutate(across(starts_with("n"),as.character)) %>%
+  ggplot(aes(n_poly,Q2, color = expr, fill = expr)) +
+  geom_point() +
+  geom_ribbon(aes(ymin = Q1, ymax = Q3), alpha = 0.1, color = FALSE) +
+  geom_line()  +
+  scale_y_continuous(paste0("Duration (in ",attr(mbm$time,"unit"),")"),labels = scales::label_number_si()) +
+  scale_x_continuous(name = "Number of Polygons") +
+  facet_wrap(~n_points, labeller = labeller(n_points = ~paste0(as.integer(.x)/1e3, "K points")), scales = "free_y", ncol = 1) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+```
+
+This test shows something interesting: While `st_intersects` and `st_contains` are faster than `st_covered_by` and `st_within` with a single polygon, they are quickly overtaken in speed by `st_within` and `st_covered_by` when the number of polygon grows. This effect is most dominant with a large amount of points. 
+**So the take home message for me is to use `st_intersects` or `st_contains` when I have a small number of polygons and `st_covered_by` when the number of polygons increases.**
+
+
+```{r, include=FALSE}
+
+library(patchwork)
+
+p4 <- p1 + p2 + plot_layout(ncol = 1,heights = c(1.5,1))
+
+ggsave("preview.jpg",p4, height = 10, width = 15, units = "cm")
+
+```
+
