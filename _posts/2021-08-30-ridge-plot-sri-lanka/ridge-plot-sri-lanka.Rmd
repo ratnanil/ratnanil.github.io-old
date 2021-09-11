@@ -1,0 +1,26 @@
+---
+title: "Ridge Plot Sri Lanka"
+description: |
+  A short description of the post.
+author:
+  - name: Nils Ratnaweera
+    url: {}
+date: 2021-08-30
+output:
+  distill::distill_article:
+    self_contained: false
+---
+```{r, include = FALSE}
+if(interactive()){setwd("_posts/2021-08-30-ridge-plot-sri-lanka")}
+```
+
+<!-- https://download.geoservice.dlr.de/TDM90/ -->
+
+```{r}
+library(terra)
+
+dem <- rast("data-git-lfs/c3_vaessa_dem_20m_sld99/VaeSSA_DEM_20m_SLD99.img")
+
+plot(dem)
+```
+
