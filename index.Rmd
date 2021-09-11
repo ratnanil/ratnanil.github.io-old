@@ -10,9 +10,9 @@ h1{
 </style>
 
 
-I understand something better once I try to explain it. This is one of my motivations to start blogging: to understand more on the topics I'm interested in. 
+I understand something better once I try to explain it. This is one of my motivations to start blogging: to learn more on the topics I'm interested in. 
 
-Also, publishing something helps me complete the thought process of half baked ideas. And last but not least, I want to join the vibrant community of `R` users, open source enthusiasts, spatial people, python lovers, linux advocates and data scientists.
+Also, writing helps me complete the thought process of half baked ideas. And last but not least, I want to join the vibrant community of `R` users, open source enthusiasts, spatial people, python lovers, linux advocates and data scientists.
 
 <div style = "text-align: center">
 <img src = "12532091.jpeg" style = "max-width: 200px;   border-radius: 50%;">
