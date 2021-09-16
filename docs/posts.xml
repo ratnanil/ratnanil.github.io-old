@@ -7,16 +7,16 @@
     <description>If you can't explain it, you don't understand it well enough.
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Sat, 11 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 15 Sep 2021 00:00:00 +0000</lastBuildDate>
     <item>
       <title>Benchmarking binary predicates</title>
       <dc:creator>Nils Ratnaweera</dc:creator>
       <link>https://nils.ratnaweera.net/posts/2021-09-11-benchmarking_binary_predicates</link>
-      <description>Comparing the speeds of different methods to do a "point in polygon operation" with sf.</description>
+      <description>Comparing the performance of different methods to do a "point in polygon operation" with sf.</description>
       <category>R</category>
       <category>geodata</category>
       <guid>https://nils.ratnaweera.net/posts/2021-09-11-benchmarking_binary_predicates</guid>
-      <pubDate>Sat, 11 Sep 2021 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 15 Sep 2021 00:00:00 +0000</pubDate>
       <media:content url="https://nils.ratnaweera.net/posts/2021-09-11-benchmarking_binary_predicates/preview.jpg" medium="image" type="image/jpeg"/>
     </item>
     <item>
