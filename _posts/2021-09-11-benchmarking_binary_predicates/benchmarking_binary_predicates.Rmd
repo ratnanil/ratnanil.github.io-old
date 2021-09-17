@@ -31,6 +31,9 @@ library(sf)
 library(readr)
 library(ggplot2)
 library(lubridate)
+library(microbenchmark)
+library(ggridges)
+library(forcats)
 ```
 
 
@@ -80,7 +83,11 @@ sl_boundary_l2 <- read_sf(
 # modification date : date of last modification in yyyy-MM-dd format
 
 
-colnames <- c("geonameid", "name",  "asciiname",  "alternatenames", "latitude",  "longitude",  "feature_class",  "feature_code", "country_code",  "cc2",  "admin1_code",  "admin2_code",  "admin3_code",  "admin4_code",  "population", "elevation", "dem", "timezone",  "modification_date")
+colnames <- c("geonameid", "name",  "asciiname",  "alternatenames", "latitude",  
+              "longitude",  "feature_class",  "feature_code", "country_code",  
+              "cc2",  "admin1_code",  "admin2_code",  "admin3_code",  
+              "admin4_code",  "population", "elevation", "dem", "timezone",  
+              "modification_date")
 
 
 geonames_dir <- file.path(tmp, "geonames")
@@ -128,14 +135,22 @@ Next, I will do the same operation with the other functions and also check the o
 
 ```{r}
 
-points_filter[["contains"]] <- geonames[st_contains(kandy,geonames,sparse = FALSE)[1,],]
-points_filter[["intersects"]] <- geonames[st_intersects(geonames,kandy,sparse = FALSE)[,1],]
-points_filter[["covered_by"]] <- geonames[st_covered_by(geonames,kandy,sparse = FALSE)[,1],]
+points_filter[["contains"]] <- geonames[st_contains(kandy,
+                                                    geonames,
+                                                    sparse = FALSE)[1,],]
+points_filter[["intersects"]] <- geonames[st_intersects(geonames,
+                                                        kandy,
+                                                        sparse = FALSE)[,1],]
+points_filter[["covered_by"]] <- geonames[st_covered_by(geonames,
+                                                        kandy,
+                                                        sparse = FALSE)[,1],]
 
 tibble(
   function_name = names(points_filter),
   nrow = sapply(points_filter, nrow),
-  identical_to_st_within = sapply(points_filter, function(x){identical(points_filter[["within"]], x)})
+  identical_to_st_within = sapply(points_filter, function(x){
+    identical(points_filter[["within"]], x)
+    })
 ) %>%
   knitr::kable(col.names = stringr::str_replace_all(colnames(.),"_", " "))
 
@@ -145,10 +160,8 @@ tibble(
 To find out which function is the fastest, I use the package `microbenchmark`. Since it doesn't always take the same amount of time to process the same function, each function is executed multiple times (`times = 50`) and we will look at the distribution of the execution times.
 
 
-```{r, code_folding = code_folding("Benchmarking the functions"), cache = TRUE}
-library(microbenchmark)
-library(ggridges)
-library(forcats)
+```{r, code_folding = code_folding("Benchmarking the functions"), eval = FALSE}
+
 
 mbm  <- microbenchmark(
   intersects = st_intersects(kandy,geonames),
@@ -157,7 +170,18 @@ mbm  <- microbenchmark(
   covered_by = st_covered_by(geonames,kandy),
   times = 50
 )
+```
 
+```{r, echo = FALSE, eval = FALSE}
+save(mbm, file = "mbm.Rda")
+```
+
+```{r, echo=FALSE}
+load("mbm.Rda")
+```
+
+
+```{r, code_folding = code_folding("visualizing the result"), cache = TRUE}
 mbm2df <- function(mbm_obj){
   df <- as.data.frame(mbm_obj)
   df$time <- dnanoseconds(df$time)
@@ -174,7 +198,8 @@ p2 <- mbm_df %>%
   ggplot(aes(time,expr,fill = ..x..)) +
   geom_density_ridges_gradient(scale = 2, rel_min_height = 0.01) +
   scale_fill_viridis_c(option = "C")  +
-  scale_x_time(name = "Duration (in seconds)",labels = scales::time_format(format = "%OS3")) +
+  scale_x_time(name = "Duration (in seconds)",
+               labels = scales::time_format(format = "%OS3")) +
   labs(y = "Function") +
   theme_minimal() +
   theme(legend.position="none")
@@ -229,26 +254,33 @@ mbm2_df <- mbm2df(mbm2)
 
 mylabels <- function(x){sprintf("%+3.f%%", x*100)}
 
-library(forcats)
 mbm2_df %>%
   group_by(expr, n_poly, n_points) %>%
   summarise(median = median(time)) %>% 
   ungroup() %>%
   group_by(n_poly,n_points) %>%
   mutate(
-    perc = median/median[expr == "intersects"]-1,
-    expr = fct_relevel(expr, "covered_by", "within", "contains","intersects")
+    perc = median/median[expr == "contains"]-1,
+    expr = fct_relevel(expr, "within", "covered_by","intersects", "contains")
     ) %>%
   ggplot(aes(perc,as.factor(expr), color = expr, fill = expr)) +
   geom_point() +
   geom_linerange(aes(xmin = 0, xmax = perc)) +
   # expand_limits(x = 0) +
-  scale_x_continuous("Duration (compared to 'st_intersects')", breaks = seq(-.4,.4,.2), labels = mylabels,limits = c(-.5,.5), sec.axis = sec_axis(~.x, breaks = c(-.4,.4),labels = c("< faster","slower > "))) +
+  scale_x_continuous("Relative execution time (compared to 'st_contains')", 
+                     breaks = seq(-.4,.4,.2), labels = mylabels,
+                     limits = c(-.5,.5), 
+                     sec.axis = sec_axis(~.x, 
+                                         breaks = c(-.4,.4), 
+                                         labels = c("< faster","slower > "))) +
   labs(y = "") +
-  facet_grid(n_poly~n_points, labeller = labeller(n_points = ~paste0(as.integer(.x)/1e3, "K points"),
-                                                  n_poly = ~paste0(.x, " polygons")))+
+  facet_grid(n_poly~n_points, 
+             labeller = labeller(n_points = ~paste0(as.integer(.x)/1e3, "K points"),
+                                 n_poly = ~paste0(.x, " polygons")))+
   theme_light() +
-  theme(legend.position = "none", axis.ticks.x.top = element_blank(), text = element_text(size = 9))
+  theme(legend.position = "none", 
+        axis.ticks.x.top = element_blank(), 
+        text = element_text(size = 9))
 ```
 
 ```{r, include=FALSE, fig.height=7}
@@ -259,17 +291,20 @@ mbm2_df %>%
   ggplot(aes(n_poly,median, color = expr, fill = expr)) +
   geom_point() +
   geom_line()  +
-  scale_y_time(name = "Duration (in seconds)", labels = scales::time_format(format = "%OS2")) +
+  scale_y_time(name = "Duration (in seconds)", 
+               labels = scales::time_format(format = "%OS2")) +
   scale_x_continuous(name = "Number of Polygons") +
-  facet_wrap(~n_points, labeller = labeller(n_points = ~paste0(as.integer(.x)/1e3, "K points")), scales = "free_y", ncol = 1) +
+  facet_wrap(~n_points, 
+             labeller = labeller(n_points = ~paste0(as.integer(.x)/1e3, "K points")), 
+             scales = "free_y", ncol = 1) +
   theme_minimal() +
   theme(legend.position = "bottom")
 
 ```
 
-This test shows something interesting: While `st_intersects` and `st_contains` are fast with a single polygon, they are inferior to `st_covered_by` and `st_within` for larger numbers of polygons. This effect is more prominent as the number of *points* grows as well.
+This test shows something interesting: While `st_contains` and `st_intersects` are fast with a single polygon, they don't scale well with lager number of polygons. This effect is especially prominent when the number of points is large (~500K). 
 
-**So the take home message for me is to use `st_intersects` or `st_contains` when I have a small number of polygons and `st_covered_by` when the number of polygons increases.**
+My take home message from this whole exercise: If you want to subset points based on whether they lie in specific polygons or not,  use `st_intersects` or `st_contains` when the number of polygons is small. Use `st_covered_by` or `st_within` when the number of polygons is large. If it's important what happens to points lying on the edge, remember that only `st_intersects` and `st_covered_by` will include them.  
 
 
 ```{r, include=FALSE}
