@@ -140,7 +140,7 @@ st_bbox_rast <- function(rast_obj){
   library(terra)
   library(sf)
   
-  ex <- ext(dhm) %>%
+  ex <- ext(rast_obj) %>%
     as.vector()
   
   matrix(c(ex[1],ex[3],ex[1], ex[4],ex[2], ex[4],ex[2],ex[3],ex[1],ex[3]),ncol = 2, byrow = TRUE) %>%
