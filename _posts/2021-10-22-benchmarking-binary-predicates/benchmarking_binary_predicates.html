@@ -93,8 +93,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2021-09-17"/>
-  <meta property="article:created" itemprop="dateCreated" content="2021-09-17"/>
+  <meta property="article:published" itemprop="datePublished" content="2021-10-22"/>
+  <meta property="article:created" itemprop="dateCreated" content="2021-10-22"/>
   <meta name="article:author" content="Nils Ratnaweera"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -113,7 +113,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","description","categories","tags","preview","twitter","output","date"]}},"value":[{"type":"character","attributes":{},"value":["Benchmarking binary predicates"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Nils Ratnaweera"]}]}]},{"type":"character","attributes":{},"value":["Comparing the performance of different methods to do a \"point in polygon operation\" with sf.\n"]},{"type":"character","attributes":{},"value":["R","geodata"]},{"type":"character","attributes":{},"value":["R","point-in-polygon","sf","swisstopo","Sri Lanka"]},{"type":"character","attributes":{},"value":["preview.jpg"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["site","author"]}},"value":[{"type":"character","attributes":{},"value":["@NRatnaweera"]},{"type":"character","attributes":{},"value":["@NRatnaweera"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["09-17-2021"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","description","categories","tags","preview","twitter","output","date"]}},"value":[{"type":"character","attributes":{},"value":["Benchmarking binary predicates"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Nils Ratnaweera"]}]}]},{"type":"character","attributes":{},"value":["Comparing the performance of different methods to do a \"point in polygon operation\" with sf.\n"]},{"type":"character","attributes":{},"value":["R","geodata"]},{"type":"character","attributes":{},"value":["R","point-in-polygon","sf","swisstopo","Sri Lanka"]},{"type":"character","attributes":{},"value":["preview.jpg"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["site","author"]}},"value":[{"type":"character","attributes":{},"value":["@NRatnaweera"]},{"type":"character","attributes":{},"value":["@NRatnaweera"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["10-22-2021"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1439,7 +1439,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="benchmarking_binary_predicates_files/header-attrs-2.11/header-attrs.js"></script>
+  <script src="benchmarking_binary_predicates_files/header-attrs-2.11.2/header-attrs.js"></script>
   <script src="benchmarking_binary_predicates_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="benchmarking_binary_predicates_files/popper-2.6.0/popper.min.js"></script>
   <link href="benchmarking_binary_predicates_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -1460,7 +1460,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Benchmarking binary predicates","description":"Comparing the performance of different methods to do a \"point in polygon operation\" with sf.","authors":[{"author":"Nils Ratnaweera","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-09-17T00:00:00.000+02:00","citationText":"Ratnaweera, 2021"}
+{"title":"Benchmarking binary predicates","description":"Comparing the performance of different methods to do a \"point in polygon operation\" with sf.","authors":[{"author":"Nils Ratnaweera","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-10-22T00:00:00.000+02:00","citationText":"Ratnaweera, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1484,7 +1484,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   
   Nils Ratnaweera
   
-<br/>09-17-2021
+<br/>10-22-2021
 </div>
 
 <div class="d-article">
@@ -1705,7 +1705,7 @@ show code for: visualizing the result
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mbm2df</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>mbm_obj</span><span class='op'>)</span><span class='op'>{</span>
   <span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>mbm_obj</span><span class='op'>)</span>
-  <span class='va'>df</span><span class='op'>$</span><span class='va'>time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/duration.html'>dnanoseconds</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>time</span><span class='op'>)</span>
+  <span class='va'>df</span><span class='op'>$</span><span class='va'>time</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://lubridate.tidyverse.org/reference/duration.html'>dnanoseconds</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>time</span><span class='op'>)</span>
   <span class='va'>df</span>
 <span class='op'>}</span>
 
