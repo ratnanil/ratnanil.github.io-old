@@ -43,7 +43,7 @@ knitr::include_graphics("minimalistic_topography.png")
 
 ### Create some generic functions 
 
-```{r}
+```{r functions}
 
 
 #' Create ridgelines from a digital elevation model (dhm)

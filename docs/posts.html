@@ -2275,7 +2275,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.11.2/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2363,7 +2363,7 @@ function init_posts_list() {
     var src = $(img).attr('data-src');
     if (src) {
       $(img).attr('src', src);
-      $(img).load(function() {
+      $(img).on("load", function() {
         img.removeAttribute('data-src');
       });
     }
@@ -2488,16 +2488,16 @@ function init_posts_list() {
 <div class="posts-container posts-with-sidebar posts-apply-limit l-screen-inset">
 <div class="posts-list">
 <h1 class="posts-list-caption" data-caption="curiouser and curiouser!">curiouser and curiouser!</h1>
-<a href="posts/2021-09-11-benchmarking_binary_predicates/" class="post-preview">
+<a href="posts/2021-10-22-benchmarking-binary-predicates/" class="post-preview">
 <script class="post-metadata" type="text/json">{"categories":["R","geodata"]}</script>
 <div class="metadata">
-<div class="publishedDate">Sept. 16, 2021</div>
+<div class="publishedDate">Oct. 22, 2021</div>
 <div class="dt-authors">
 <div class="dt-author">Nils Ratnaweera</div>
 </div>
 </div>
 <div class="thumbnail">
-<img src="posts/2021-09-11-benchmarking_binary_predicates/preview.jpg"/>
+<img src="posts/2021-10-22-benchmarking-binary-predicates/preview.jpg"/>
 </div>
 <div class="description">
 <h2>Benchmarking binary predicates</h2>
@@ -2580,8 +2580,8 @@ function init_posts_list() {
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
 <blockquote>
-The time has come,' the Walrus said, 
-To talk of many things 
+"The time has come," the Walrus said, 
+"To talk of many things.."
 <cite> - From The Walrus and the Carpenter by Lewis Carroll </cite>
 </blockquote>
 </div>
