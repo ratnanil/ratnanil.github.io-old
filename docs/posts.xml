@@ -7,7 +7,7 @@
     <description>If you can't explain it, you don't understand it well enough.
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 22 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 21 Oct 2021 00:00:00 +0000</lastBuildDate>
     <item>
       <title>Benchmarking binary predicates</title>
       <dc:creator>Nils Ratnaweera</dc:creator>
@@ -16,7 +16,7 @@
       <category>R</category>
       <category>geodata</category>
       <guid>https://nils.ratnaweera.net/posts/2021-10-22-benchmarking-binary-predicates</guid>
-      <pubDate>Fri, 22 Oct 2021 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 21 Oct 2021 00:00:00 +0000</pubDate>
       <media:content url="https://nils.ratnaweera.net/posts/2021-10-22-benchmarking-binary-predicates/preview.jpg" medium="image" type="image/jpeg"/>
     </item>
     <item>

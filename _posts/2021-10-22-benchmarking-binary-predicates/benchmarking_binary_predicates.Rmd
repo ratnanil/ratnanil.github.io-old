@@ -5,7 +5,7 @@ description: |
   Comparing the performance of different methods to do a "point in polygon operation" with sf.
 categories: ["R", "geodata"]
 tags: ["R", "point-in-polygon", "sf", "swisstopo", "Sri Lanka"]
-preview: preview.jpg
+preview: https://nils.ratnaweera.net/posts/2021-10-22-benchmarking-binary-predicates/preview.jpg
 twitter: 
   site: "@NRatnaweera"
   author: "@NRatnaweera"
