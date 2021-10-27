@@ -15,7 +15,7 @@
       <description>Swisstopo challenge</description>
       <guid>https://nils.ratnaweera.net/posts/2021-10-27-r-usergroup-zurich-swisstopo-challenge</guid>
       <pubDate>Wed, 27 Oct 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://github.com/ratnanil/r-usergroup-swisstopo/blob/main/images/overlay.png" medium="image" type="image/png"/>
+      <media:content url="https://raw.githubusercontent.com/ratnanil/r-usergroup-swisstopo/main/images/overlay.png" medium="image" type="image/png"/>
     </item>
     <item>
       <title>Benchmarking binary predicates</title>

@@ -12,8 +12,8 @@
     "date": "2021-10-27",
     "categories": [],
     "contents": "\nAfter a long time the Zurich R User Group meets up again physically. The organisers posted the following message on their board:\n\n\n\nSince I regularly do things with these datasets in R, I decided to present some of my use cases. Here are the slides for this talk:I\nFull screen: ratnanil.github.io/r-usergroup-swisstopo\nRepo (not much R-code here): github.com/ratnanil/r-usergroup-swisstopo \n\n\n\n",
-    "preview": "https://github.com/ratnanil/r-usergroup-swisstopo/blob/main/images/overlay.png",
-    "last_modified": "2021-10-27T11:18:13+02:00",
+    "preview": "https://raw.githubusercontent.com/ratnanil/r-usergroup-swisstopo/main/images/overlay.png",
+    "last_modified": "2021-10-27T11:25:24+02:00",
     "input_file": {}
   },
   {
