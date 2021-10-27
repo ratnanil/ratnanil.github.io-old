@@ -10,7 +10,7 @@ output:
     self_contained: false
 preview: overlay.png
 ---
-
+overlay.png
 After a long time the Zurich R User Group meets up again physically. The organisers posted the following message on their board:
 
 <div style = "text-align: center;">

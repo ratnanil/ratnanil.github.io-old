@@ -5,34 +5,34 @@
       "title": "What about?",
       "author": [],
       "contents": "\n\nOf shoes — and ships — and sealing-wax — Of cabbages — and kings — And why the sea is boiling hot — And whether pigs have wings.’\n\nFrom The Walrus and the Carpenter by Lewis Carroll\n\n\n\n\n",
-      "last_modified": "2021-10-22T07:06:45+02:00"
+      "last_modified": "2021-10-27T11:13:03+02:00"
     },
     {
       "path": "index.html",
       "title": "My Blog",
       "author": [],
       "contents": "\n\nh1{\n  display: none\n}\nI understand something better once I try to explain it. This is one of my motivations to start blogging: to learn more on the topics I’m interested in.\nAlso, writing helps me complete the thought process of half baked ideas. And last but not least, I want to join the vibrant community of R users, open source enthusiasts, spatial people, python lovers, linux advocates and data scientists.\n\n\n\nMy Name is Nils Ratnaweera and I’m a Research Fellow at the Zurich University of Applied Sciences. I’m an environmental engineer who love his job of working with environmental spatial data using mainly open source tools such as R, python, gdal, SQL.\n\n\n\n\n",
-      "last_modified": "2021-10-22T07:06:45+02:00"
+      "last_modified": "2021-10-27T11:13:04+02:00"
     },
     {
       "path": "posts.html",
       "title": "curiouser and curiouser!",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-10-22T07:06:45+02:00"
+      "last_modified": "2021-10-27T11:13:04+02:00"
     },
     {
       "path": "Readme.html",
       "author": [],
       "contents": "\nMy very first and only blog, currently hosted on nils.ratnaweera.net\nTodo:\nspin_child\npython toolbox documentation (see repo and SO answer)\nhometrails\nchange default theme\n",
-      "last_modified": "2021-10-22T07:06:46+02:00"
+      "last_modified": "2021-10-27T11:13:04+02:00"
     },
     {
       "path": "teaching.html",
       "title": "Teaching Materials",
       "author": [],
       "contents": "\nMost of our teaching materials are available online on github repos. Check them out!\n\n\n\nAn introduction to Spatial R for ArcGIS users https://arc2r.github.io/book\n\n\n\nAn introduction to GIS in Python for Environmental Scientists (Bachelor Students) https://modul-agi.github.io/\n\n\n\n\nTeaching R, the tidyverse, data processing, data visualization and statistics https://researchmethods-zhaw.github.io/\n\n\n\n\nComputational Movement Analysis: Detecting Patterns and Trends in Environmental Data. A course taught by Prof. Dr. Patrick Laube, I was responsible for creating the R-exercises. https://computationalmovementanalysis.github.io/\n\n\n\n\n",
-      "last_modified": "2021-10-22T07:06:46+02:00"
+      "last_modified": "2021-10-27T11:13:05+02:00"
     }
   ],
   "collections": ["posts/posts.json"]
