@@ -7,7 +7,16 @@
     <description>If you can't explain it, you don't understand it well enough.
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 27 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 05 Nov 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Warping Switzerland back into shape</title>
+      <dc:creator>Nils Ratnaweera</dc:creator>
+      <link>https://nils.ratnaweera.net/posts/2021-11-05-warping-switzerland-back-into-shape</link>
+      <description>What changed when switching from Switzerland's old coordinate system to the new one?</description>
+      <guid>https://nils.ratnaweera.net/posts/2021-11-05-warping-switzerland-back-into-shape</guid>
+      <pubDate>Fri, 05 Nov 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://nils.ratnaweera.net/posts/2021-11-05-warping-switzerland-back-into-shape/distill-preview.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>R Usergroup Zurich</title>
       <dc:creator>Nils Ratnaweera</dc:creator>
