@@ -7,80 +7,33 @@ categories: ["R"]
 
 ## The evolution of a rayshader viz
 
-![](/img/2020_06_04_rayshader/steps_01-10.gif)
 
 ## Preperation 
-
-I've long wanted to try out the [`rayshader`](https://www.rayshader.com/) package, and here's my blogpost visualizing Lake Zurich, the area where I live and work. In this blogpost, I'm using the [`geoviz`](https://cran.r-project.org/package=geoviz) package to get a DEM with a 50m resolution and "landsat" imagery with a 25m resolution obtained through the [swisstopo website](https://shop.swisstopo.admin.ch/en/products/free/free_geodata).
 
 
 ```{r}
 
-library(raster)
-library(sf)
-library(tidyverse)
-
+library(terra)
 library(rayshader)
-library(lazyraster)
 
 ```
 
 
 The function returns a classical raster dataset in WGS84.
 ```{r, echo = FALSE}
-dem <- raster("data-git-lfs/dem_mapzen.tif")
+dem <- terra::rast("data-git-lfs/DHM25_MM_ASCII_GRID/ASCII_GRID_1part/dhm25_grid_raster.asc")
+
 ```
 
-
-```{r}
-plot(dem)
-```
-
-After downloading the landsat dataset, I can import it with the fuction `brick` from `raster`.
-
-```{r}
-landsat <- brick("data-git-lfs/LandsatMos25.tif")
-crs(landsat) <- st_crs(21781)$proj4string
-```
-
-The two datasets, `dem` and `landsat` are in different coordinate systems and I need to reproject one into the other. If given the choice I prefer to work in a local, projected coordinate system and so will use `landsat`'s CRS (EPSG 21781).
-
-```{r}
-dem <- projectRaster(dem, crs = crs(landsat),method = "bilinear")
-dem
-```
-
-Due to the reprojection process, the DEM now has a funky resolution and extent. Since this would cause problems later on I will create a new, clean raster dataset and extract the values from the DEM. 
-
-```{r}
-
-# Round xmin / ymin to the next higher multiple of 25
-xmn <- ceiling(extent(dem)@xmin/25)*25
-ymn <- ceiling(extent(dem)@ymin/25)*25
-
-# Round xmax / ymax to the next lower multiple of 25
-xmx <- floor(extent(dem)@xmax/25)*25
-ymx <- floor(extent(dem)@ymax/25)*25
-
-# Create an empty raster with the right resolution and extent
-dem2 <- raster(res = res(landsat),xmn = xmn, xmx = xmx, ymn = ymn, ymx = ymx)
-
-# use values of dem to populate the new raster
-dem2 <- raster::resample(dem,dem2)
-
-dem2
-```
-
-Now I need to convert the raster to a matrix so that I can use it in `rayshader`. The `raster` package provides an `as.matrix()` method for rasters, but `rayshader` has a custom function for this. Also, I can `crop` the landsat image to the extent of the DEM. 
 
 
 
 ```{r}
-dem_mat <- raster_to_matrix(dem2)
 
-landsat <- crop(landsat, dem2)
+dem2 <- terra::aggregate(dem,100)
 
-plotRGB(landsat)
+dem_mat <- raster_to_matrix(raster::raster(dem2))
+
 ```
 
 In order to use the `landsat` dataset as an overlay, we need to convert our raster dataset in the following manner:
