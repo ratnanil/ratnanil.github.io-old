@@ -11,20 +11,33 @@ output:
     self_contained: false
 ---
 
+<style>
+.code-highlight{
+  background-color: #3498DB;
+}
+</style>
 
-When I started working geodata a couple of years ago, Switzerland was beginning to  transition from it's old coordinate system `CH1903 LV03` to `CH1903+ LV95` (EPSG 2056). The new coordinate system was awkward from the start. First off, I suddenly was un unable to convert data from WGS84 using a custom R script that swisstopo had previously provided for `CH1903 LV03`. The answer to [my question on a swisstopo google group (in 2017)](https://groups.google.com/g/geoadmin-api/c/dkA-JCdyGLw/m/jid3Sx_oFAAJ) was to use swisstopo's REST api.
+```{r, echo = FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+```
 
-This problem was seemingly solved with the emergence of `sf` and it's built in methods to reproject coordinates easily. Until one day I realized that the coordinate transformations to and from EPSG 2056 were fairly imprecise. The transformations did not account for the spatially varying offset for which the new coordinate system was implemented in the first place.  
 
-I filed [an issue on `sf` github repo](https://github.com/r-spatial/sf/issues/1292) beginning of 2020, but it wasn't until recently (wiht PROJ 7.0.0) that I was able to precisely transform my data to and from EPSG 2056. 
+When I started working geodata a couple of years ago, Switzerland was beginning to  transition from it's old coordinate system `CH1903 LV03` to `CH1903+ LV95` (EPSG 2056). 
 
-[Roger Bivand](https://github.com/r-spatial/sf/issues/1292#issuecomment-595089209) was able to pinpoint the issue using the function `list_coordOps()` from `rgdal`. Apparently, the transformation was lacking a grid with the name `ch_swisstopo_CHENyx06a.tif`.
+The new coordinate system was awkward from the start. First off, I suddenly was un unable to convert data from WGS84 using a custom R script that swisstopo had previously provided for `CH1903 LV03`. The answer to [my question on a swisstopo google group (in 2017)](https://groups.google.com/g/geoadmin-api/c/dkA-JCdyGLw/m/jid3Sx_oFAAJ) was to use swisstopo's REST api.
+
+This problem was seemingly solved with the emergence of `sf` and it's built-in methods to reproject coordinates easily. Until one day I realized that the coordinate transformations to and from EPSG 2056 were fairly imprecise. The transformations did not account for the spatially varying offset for which the new coordinate system was implemented in the first place.  
+
+I filed [an issue on sf' github repo](https://github.com/r-spatial/sf/issues/1292) beginning of 2020, but it wasn't until recently (with PROJ 7.0.0) that I was able to **precisely** transform my data to and from EPSG 2056. 
+
+The issue is highlighted with the function `list_coordOps()` from `rgdal`. Apparently, the transformation was lacking a grid with the name `ch_swisstopo_CHENyx06a.tif`.
 
 ```{r, eval = FALSE}
 rgdal::list_coordOps("EPSG:21781", "EPSG:2056")
 ```
 
-```
+<pre>
+<code>
 Candidate coordinate operations found:  2 
 Strict containment:  FALSE 
 Visualization order:  TRUE 
@@ -34,13 +47,17 @@ Best instantiable operation has only ballpark accuracy
 Description: Inverse of Swiss Oblique Mercator 1903M + Ballpark geographic 
 offset from CH1903 to CH1903+ + Swiss Oblique Mercator
              1995
-Definition:  +proj=pipeline +step +inv +proj=somerc +lat_0=46.9524055555556 +lon_0=7.43958333333333 +k_0=1 +x_0=600000
-             +y_0=200000 +ellps=bessel +step +proj=somerc +lat_0=46.9524055555556 +lon_0=7.43958333333333 +k_0=1
-             +x_0=2600000 +y_0=1200000 +ellps=bessel
-Operation 1 is lacking 1 grid with accuracy 0.2 m
-Missing grid: ch_swisstopo_CHENyx06a.tif 
-URL: https://cdn.proj.org/ch_swisstopo_CHENyx06a.tif 
-```
+Definition:  +proj=pipeline +step +inv +proj=somerc +lat_0=46.9524055555556 
+             +lon_0=7.43958333333333 +k_0=1 +x_0=600000+y_0=200000 +ellps=bessel 
+             +step +proj=somerc +lat_0=46.9524055555556 +lon_0=7.43958333333333 
+             +k_0=1 +x_0=2600000 +y_0=1200000 +ellps=bessel
+<span class = "code-highlight">Operation 1 is lacking 1 grid with accuracy 0.2 m</span>
+<span class = "code-highlight">Missing grid: ch_swisstopo_CHENyx06a.tif </span>
+<span class = "code-highlight">URL: https://cdn.proj.org/ch_swisstopo_CHENyx06a.tif </span>
+</code>
+</pre>
+
+
 
 With my current version of `sf` and `rgdal`, I need to download this grid manually and copy it to the PROJ directory. Running `list_coordOps` now shows a different output.
 
@@ -53,10 +70,28 @@ sudo mv ch_swisstopo_CHENyx06a.tif /usr/share/proj/
 rgdal::list_coordOps("EPSG:21781", "EPSG:2056")
 ```
 
-Now I can visualize how the new coordinate system is different from the old. 
+The downloaded file is a so called *transformation grid*: A raster dataset in WGS84 containing information on the lat and lon offset for a given cell. 
 
 ```{r}
+library(tmap)
 library(sf)
+library(terra)
+
+ch_swisstopo_CHENyx06a <- terra::rast("ch_swisstopo_CHENyx06a.tif")
+# Swissboundaries3D data from swisstopo
+landesgebiet <- read_sf("data-git-lfs/swissboundaries/swissBOUNDARIES3D_1_3_TLM_LANDESGEBIET.shp")
+
+
+
+tm_shape(ch_swisstopo_CHENyx06a) + 
+  tm_raster(style = "cont",palette = "RdYlBu") + 
+  tm_shape(landesgebiet) + tm_borders()
+```
+
+I now want to use this grid to visualize how the new coordinate system is different from the old. 
+
+
+```{r}
 library(dplyr)
 library(ggplot2)
 library(tidyr)
@@ -98,28 +133,27 @@ make_grid <- function(cellsize, land){
 
 
 ```{r}
-landesgebiet <- read_sf("data-git-lfs/swissboundaries/swissBOUNDARIES3D_1_3_TLM_LANDESGEBIET.shp")
 
-```
-
-
-```{r}
-df <- make_grid(1000, landesgebiet)
-colo <- paste0("#",c("EF476F","FFD166","06D6A0", "118AB2","EF476F"))
-
-
-bb_ch <- landesgebiet %>%
-  st_bbox() %>%
-  st_as_sfc() %>%
-  st_buffer(5000) %>%
-  st_difference(st_union(landesgebiet))
-
+# Add some cities as labels
 markers <- tribble(
   ~E, ~N, ~name,
   2598633.750, 1200386.750, "Bern",
   2682217.000, 1247945.250 , "Zürich"
 )
 
+# Make my custom grid, similar to the transformation grid
+df <- make_grid(1000, landesgebiet)
+colo <- paste0("#",c("EF476F","FFD166","06D6A0", "118AB2","EF476F"))
+
+# create a "mask" to hide areas outside Switzerland (hacky but fast)
+bb_ch <- landesgebiet %>%
+  st_bbox() %>%
+  st_as_sfc() %>%
+  st_buffer(2000) %>%
+  st_difference(st_union(landesgebiet))
+
+
+# create the main plot
 p1 <- ggplot(df, aes(E, N)) +
   geom_raster(aes(fill = heading_deg)) +
   scale_fill_gradientn(colors = colo)+
@@ -127,14 +161,14 @@ p1 <- ggplot(df, aes(E, N)) +
   scale_alpha_continuous(range = c(0.5, 1)) +
   geom_sf(data = bb_ch, inherit.aes = FALSE, fill = "white", color = "NA") +
   geom_sf(data = landesgebiet, fill = "NA", inherit.aes = FALSE) +
-  theme(legend.position = "none") +
+  theme(legend.position = "none", plot.title = element_text(hjust = .5),plot.subtitle = element_text(hjust = .5)) +
   geom_point(data = markers) +
   geom_text(data = markers, aes(label = name),nudge_x = 15000, nudge_y = -15000) +
   labs(title = "Transitioning from EPSG 21781 to 2056",
        subtitle = "in which direction is the offset?"
          )
 
-
+# create a dataframe for the legend
 legend_df <- tibble(x = seq(1, 360, 1))  %>%
   mutate(id = x,
          xend = lead(x)) %>%
@@ -147,6 +181,7 @@ legend_df <- tibble(x = seq(1, 360, 1))  %>%
   ) %>%
   arrange(id, angle) 
 
+# create a plot for the legend
 legend_plot <- ggplot(legend_df) +
   geom_polygon(aes(x, y, fill = id, group = id)) +
   scale_fill_gradientn(colors = colo)+
@@ -164,7 +199,8 @@ legend_plot <- ggplot(legend_df) +
 ```
 
 
-```{r, layout="l-page"}
+```{r, layout="l-page", preview = TRUE}
+# use cowplot to combine the main plot and the legend
 library(cowplot)
 ggdraw(p1) +
   draw_plot(legend_plot, .99, .99, .3, .3, scale = 1, 
