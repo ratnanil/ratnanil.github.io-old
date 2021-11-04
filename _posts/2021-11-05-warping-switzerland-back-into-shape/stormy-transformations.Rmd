@@ -173,7 +173,7 @@ main_plot <- ggplot(mygrid, aes(E, N, color = heading_deg)) +
   scale_color_gradientn(colors = mycols) +
   labs(title = "Warping Switzerland back into shape",
        subtitle = "How off were the old coordinates?",
-       caption = "The spokes show the offset between EPSG 21781 and EPSG 2056.\nVisualized by Nils Ratnaweera") +
+       caption = "The spokes show the offset between EPSG 21781 and EPSG 2056.\nData from swisstopo. Visualized by Nils Ratnaweera") +
   coord_equal() +
   theme_void() +
   theme(legend.position = "none", 
