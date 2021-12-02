@@ -7,7 +7,16 @@
     <description>If you can't explain it, you don't understand it well enough.
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 05 Nov 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Dec 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>How open are our cantons?</title>
+      <dc:creator>Nils Ratnaweera</dc:creator>
+      <link>https://nils.ratnaweera.net/posts/2021-12-01-opendata-per-canton</link>
+      <description>Fedaralistism at its best: How the open data policy is handled across cantons</description>
+      <guid>https://nils.ratnaweera.net/posts/2021-12-01-opendata-per-canton</guid>
+      <pubDate>Wed, 01 Dec 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://nils.ratnaweera.net/posts/2021-12-01-opendata-per-canton/opendata-per-canton_files/figure-html5/unnamed-chunk-4-1.png" medium="image" type="image/png" width="1248" height="1920"/>
+    </item>
     <item>
       <title>Warping Switzerland back into shape</title>
       <dc:creator>Nils Ratnaweera</dc:creator>
